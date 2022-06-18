@@ -9,8 +9,13 @@ use App\Post;
 
 class PostController extends Controller
 {
-    // Poot一覧を表示
+    // Post一覧を表示
     public function index(Post $post) {
         return view('posts/index')->with(['posts' => $post->getPaginateByLimit()]);
+    }
+    
+    // 特定IDのPostを表示
+    public function show(Post $post) {
+        return view('posts/show')->with(['post' => $post]);
     }
 }
