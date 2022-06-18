@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 // Postモデルクラスのuse宣言追加
 use App\Post;
 
+use App\Http\Requests\PostRequest;
+
 class PostController extends Controller
 {
     // Post一覧を表示
@@ -17,5 +19,18 @@ class PostController extends Controller
     // 特定IDのPostを表示
     public function show(Post $post) {
         return view('posts/show')->with(['post' => $post]);
+    }
+    
+    // 作成画面に遷移
+    public function create() {
+        return view('posts/create');
+    }
+    
+    // ブログ保存
+    public function store(PostRequest $request, Post $post) {
+        $input = $request['post'];
+        $post->fill($input)->save();
+        
+        return redirect('/posts/' . $post->id);
     }
 }
