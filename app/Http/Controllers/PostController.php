@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 // Postモデルクラスのuse宣言追加
 use App\Post;
-
+use App\Category;
 use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
@@ -22,8 +22,8 @@ class PostController extends Controller
     }
     
     // 作成画面に遷移
-    public function create() {
-        return view('posts/create');
+    public function create(Category $category) {
+        return view('posts/create')->with(['categories' => $category->get()]);
     }
     
     // ブログ保存
